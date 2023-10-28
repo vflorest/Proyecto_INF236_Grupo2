@@ -7,7 +7,7 @@
 import openai
 
 # Configura tu API key de OpenAI
-api_key = "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"
+api_key = input("introduzca su api key")
 
 # Función para analizar la descripción y obtener el tipo de tallerista
 def obtener_tipo_tallerista(descripcion):
