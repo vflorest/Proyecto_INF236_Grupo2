@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[ ]:
 
 
 import openai
 
 # Configura tu API key de OpenAI
-api_key = "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"
+api_key = input("introduzca su api key")
 
 # Función para analizar la descripción y obtener el tipo de tallerista
 def obtener_tipo_tallerista(descripcion):
@@ -59,7 +59,7 @@ print(f"Insumos recomendados: {insumos}")
 
 
 
-# In[5]:
+# In[ ]:
 
 
 from googleapiclient.discovery import build
@@ -118,7 +118,7 @@ region = "rm"  # Código para la Región Metropolitana
 resultados_tipo_tallerista = buscar_tallerista(tipo_tallerista, num_results=10, country=country, region=region)
 
 # Establece el ancho fijo de las columnas
-column_width = 50
+column_width = 150
 
 # Mostrar los resultados de tipo de tallerista en una tabla
 table = []
