@@ -7,6 +7,7 @@
 from flask import Flask, jsonify, request
 from openai_operations import configure_api_key, obtener_tipo_tallerista, obtener_insumos
 from google_search_operations import buscar_tallerista, buscar_insumos
+from tabulate import tabulate
 
 app = Flask(__name__)
 
@@ -54,9 +55,15 @@ def search_insumos():
     if descripcion not in insumos_cache:
         return jsonify({'error': 'Primero debe obtener los insumos para la descripción dada'})
 
-    resultados = buscar_insumos(insumos_cache[descripcion])
-    table = [{'title': resultado['title'], 'link': resultado['link']} for resultado in resultados]
-    return jsonify({'tabla_insumos': table})
+    insumos_lista = insumos_cache[descripcion].split(", ")
+    resultados_insumos = {}
+    for insumo in insumos_lista:
+        resultados_insumos[insumo] = buscar_insumos(insumo)
+        
+    return jsonify({'tabla_insumos': resultados_insumos})
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -7,6 +7,7 @@
 import streamlit as st
 import requests
 import pandas as pd
+from tabulate import tabulate
 
 # URL base de la API Flask
 BASE_URL = 'http://localhost:5000'  # Cambia esto por la URL donde se ejecute la API Flask
@@ -51,8 +52,6 @@ if st.button('Configurar API Key'):
 st.header('Descripción para búsqueda')
 descripcion = st.text_input('Ingresa la descripción:')
 
-# Variable para almacenar los insumos recomendados
-insumos = []
 
 # Botón para realizar el análisis de la descripción y obtener recomendaciones
 if st.button('Obtener Recomendación'):
@@ -74,36 +73,24 @@ if st.button('Buscar Talleristas con Google'):
     if response_google_tallerista.status_code == 200:
         resultados_google_tallerista = response_google_tallerista.json().get('tabla_tallerista')
         st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
+        table = []
         for resultado in resultados_google_tallerista:
-            st.write(f"Descripción: {resultado['title']}")
-            st.write(f"Link: {resultado['link']}")
-            st.markdown("---")
+            table.append([resultado['title'], resultado['link']])
+        for row in table:
+            st.write(row, newlines=True)
 
-
+# Botón para buscar insumos en Google
 if st.button('Buscar Insumos en Google'):
-    if insumos:
-        # Obtener la lista de insumos únicos para el selector
-        insumos_lista = insumos.split(", ")
-
-        # Realizar la búsqueda de 10 resultados para cada insumo recomendado
-        for insumo in insumos_lista:
-            response_google_insumos = requests.post(f'{BASE_URL}/buscar_insumos', json={'descripcion': insumo})
-            if response_google_insumos.status_code == 200:
-                resultados_google_insumos = response_google_insumos.json().get('tabla_insumos')
-                
-                # Limitar los resultados a 10
-                resultados_insumo = resultados_google_insumos[:10]
-
-                # Mostrar los resultados para este insumo
-                st.subheader(f'Resultados para {insumo} en Chile:')
-                table_data = []
-                for resultado in resultados_insumo:
-                    table_data.append({'Descripción': resultado['title'], 'Link': resultado['link']})
-                
-                # Mostrar la tabla con los resultados para este insumo
-                st.write(pd.DataFrame(table_data))
-    else:
-        st.warning('Primero debes obtener la recomendación de insumos.')
-         
-
+    response_google_insumos = requests.post(f'{BASE_URL}/buscar_insumos', json={'descripcion': descripcion})
+    if response_google_insumos.status_code == 200:
+        resultados_google_insumos = response_google_insumos.json().get('tabla_insumos')
+        st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
+        for insumo, resultados in resultados_google_insumos.items():
+            table = []
+            for resultado in resultados:
+                table.append([resultado['title'][:50], resultado['link']])
+            st.write(f"\nResultados para {insumo} en Chile:")
+            for row in table:
+                st.write(row, newlines=True)
+            st.markdown("---")
 
