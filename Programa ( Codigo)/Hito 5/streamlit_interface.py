@@ -53,8 +53,8 @@ st.header('Descripción para búsqueda')
 descripcion = st.text_input('Ingresa la descripción:')
 
 
-# Botón para realizar el análisis de la descripción y obtener recomendaciones
-if st.button('Obtener Recomendación'):
+# Botón para realizar todas las acciones con una sola búsqueda
+if st.button('Realizar Búsqueda'):
     response = requests.post(f'{BASE_URL}/tipo_tallerista', json={'descripcion': descripcion})
     if response.status_code == 200:
         tipo_tallerista = response.json()['tipo_tallerista']
@@ -64,33 +64,33 @@ if st.button('Obtener Recomendación'):
         if insumos_response.status_code == 200:
             insumos = insumos_response.json()['insumos']
             st.success(f'Insumos recomendados: {insumos}')
+
+        # Búsqueda de talleristas en Google
+        response_google_tallerista = requests.post(f'{BASE_URL}/buscar_tallerista', json={'descripcion': descripcion})
+        if response_google_tallerista.status_code == 200:
+            resultados_google_tallerista = response_google_tallerista.json().get('tabla_tallerista')
+            st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
+            for resultado in resultados_google_tallerista:
+                st.write([resultado['title'], resultado['link']], newlines=True)
+
+        # Búsqueda de insumos en Google
+        response_google_insumos = requests.post(f'{BASE_URL}/buscar_insumos', json={'descripcion': descripcion})
+        if response_google_insumos.status_code == 200:
+            resultados_google_insumos = response_google_insumos.json().get('tabla_insumos')
+            st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
+            for insumo, resultados in resultados_google_insumos.items():
+                st.write(f"\nResultados para {insumo} en Chile:")
+                for resultado in resultados:
+                    st.write([resultado['title'][:50], resultado['link']], newlines=True)
+                st.markdown("---")
+                
+# Botón para guardar resultados
+if st.button('Guardar Resultados'):
+    data = {
+        'descripcion': descripcion,
+    }
+    response_guardar = requests.post(f'{BASE_URL}/guardar_resultados', json=data)
+    if response_guardar.status_code == 200:
+        st.success('Resultados guardados correctamente en el archivo.')
     else:
-        st.error('Error al realizar el análisis.')
-
-# Botón para buscar talleristas en Google
-if st.button('Buscar Talleristas con Google'):
-    response_google_tallerista = requests.post(f'{BASE_URL}/buscar_tallerista', json={'descripcion': descripcion})
-    if response_google_tallerista.status_code == 200:
-        resultados_google_tallerista = response_google_tallerista.json().get('tabla_tallerista')
-        st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
-        table = []
-        for resultado in resultados_google_tallerista:
-            table.append([resultado['title'], resultado['link']])
-        for row in table:
-            st.write(row, newlines=True)
-
-# Botón para buscar insumos en Google
-if st.button('Buscar Insumos en Google'):
-    response_google_insumos = requests.post(f'{BASE_URL}/buscar_insumos', json={'descripcion': descripcion})
-    if response_google_insumos.status_code == 200:
-        resultados_google_insumos = response_google_insumos.json().get('tabla_insumos')
-        st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
-        for insumo, resultados in resultados_google_insumos.items():
-            table = []
-            for resultado in resultados:
-                table.append([resultado['title'][:50], resultado['link']])
-            st.write(f"\nResultados para {insumo} en Chile:")
-            for row in table:
-                st.write(row, newlines=True)
-            st.markdown("---")
-
+        st.error('Error al guardar los resultados.')
