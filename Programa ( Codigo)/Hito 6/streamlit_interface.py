@@ -101,17 +101,17 @@ if st.button('Realizar Búsqueda'):
             resultados_google_tallerista = response_google_tallerista.json().get('tabla_tallerista')
             st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
             for resultado in resultados_google_tallerista:
-                st.write([resultado['title'], resultado['link']], newlines=True)
+                st.write([resultado['title'], resultado['link']])
 
         # Búsqueda de insumos en Google
         response_google_insumos = requests.post(f'{BASE_URL}/buscar_insumos', json={'descripcion': descripcion})
         if response_google_insumos.status_code == 200:
             resultados_google_insumos = response_google_insumos.json().get('tabla_insumos')
-            st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
+            st.subheader('Resultados de búsqueda en Google por Isumos Recomendados')
             for insumo, resultados in resultados_google_insumos.items():
                 st.write(f"\nResultados para {insumo} en Chile:")
                 for resultado in resultados:
-                    st.write([resultado['title'][:50], resultado['link']], newlines=True)
+                    st.write([resultado['title'][:50], resultado['link']])
                 st.markdown("---")
 
 

@@ -1,0 +1,14 @@
+pip install googlesearch-python
+pip install google-auth google-auth-oauthlib
+pip install google-api-python-client
+pip install openai
+pip install tabulate
+pip install streamli
+pip install requests
+pip install Flask
+pip install pandas 
+pip install Pillow
+
+O todos juntos
+
+pip install openai streamlit requests Pillow pandas tabulate google-api-python-client Flask

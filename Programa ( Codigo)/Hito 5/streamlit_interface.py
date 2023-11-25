@@ -35,6 +35,8 @@ st.markdown(estilos, unsafe_allow_html=True)
 st.title('Búsqueda de Talleristas e Insumos')
 st.write('Esta aplicación interactúa con la API para realizar búsquedas y mostrar los resultados.')
 
+
+
 # Sección para configurar la API Key de OpenAI
 st.header('Configurar API Key de OpenAI')
 api_key = st.text_input('Introduce tu API Key de OpenAI:')
