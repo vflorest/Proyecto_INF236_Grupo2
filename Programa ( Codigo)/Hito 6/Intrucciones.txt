@@ -1,0 +1,14 @@
+Para lograr que todo sea autocontenido decidimos crear un entorno virtual con virtualenv.
+Para ejecutar el codigo sigra los siguientes pasos:
+
+1:Abra 2 terminales en el directorio donde esta el codigo (Hito 6) o navegue hasta el directorio.
+2:Ejetute lo siguiente en ambas terminales:
+Para windows: .\env\Scripts\activate 
+Para Unix: source env/bin/activate
+3:Levante la api con el siguiente comando en una de las terminales: python .\apy.py
+4:Ejecute la interfaz de streamliet con el comando en la otra terminal: streamlit run streamlit_interface.py
+
+Con eso ya se puede usar el programa Para mas detalles sobre esta se puede ver el siguiente video demostrativo:
+
+5:Cuando termines para desactivar el entorno virtual usas el siguiente comando: deactivate
+

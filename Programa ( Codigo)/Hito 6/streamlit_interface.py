@@ -33,18 +33,14 @@ estilos = """
 # Aplicar estilos
 st.markdown(estilos, unsafe_allow_html=True)
 
-        
-
-
+    
 with st.container():
     st.subheader("Hola! Bienvenid@ a OiGenie")
 
 # Configurar título y descripción de la aplicación Streamlit
 st.title('OiGenie')
-st.write('Primero debes configurar tu API Key.')
-
-
-#API Key
+text_placeholder = st.empty()
+text_placeholder.write('Primero debes configurar tu API Key.')
 
 def show_popup():
     st.session_state.clicked = True
@@ -63,19 +59,16 @@ def show_popup():
         #save_api_button = sidebar.button("Guardar API Key")
 
         if  st.button("Guardar API Key"):
+            text_placeholder.empty()
             response_api_key = requests.post(f'{BASE_URL}/configure_openai_key', json={'api_key': api_key})
-            st.success(response_api_key)
             if response_api_key.status_code == 200:
                 st.success("API Key Guardada!")
             else:
                 st.error("Error al configurar la API Key.")
-        
-        
+                
 
 
-#Búsqueda
-in_str = "Ingresa aquí lo que deseas buscar..."
-
+#API Key
 if "clicked" not in st.session_state:
     st.session_state["clicked"] = False
 
@@ -83,66 +76,50 @@ with st.container():
     # Botón para abrir el popup
     if st.session_state.clicked or st.button("API Key"):
         show_popup()
-    
 
-    col1, col2 = st.columns(2)
-
-    with col1:
-        # Cuadro de texto para la búsqueda
-        search_text = st.text_input(in_str,
-            value="",
-            placeholder=in_str, key="my_input",
-            label_visibility='collapsed')
         
-    with col2:
-        # Botón para realizar todas las acciones con una sola búsqueda
-        if st.button('Buscar'):
-            response = requests.post(f'{BASE_URL}/tipo_tallerista', json={'descripcion': descripcion})
-            if response.status_code == 200:
-                tipo_tallerista = response.json()['tipo_tallerista']
-                st.success(f'Tipo de tallerista recomendado: {tipo_tallerista}')
-
-                insumos_response = requests.post(f'{BASE_URL}/insumos', json={'descripcion': descripcion})
-                if insumos_response.status_code == 200:
-                    insumos = insumos_response.json()['insumos']
-                    st.success(f'Insumos recomendados: {insumos}')
-
-                # Búsqueda de talleristas en Google
-                response_google_tallerista = requests.post(f'{BASE_URL}/buscar_tallerista', json={'descripcion': descripcion})
-                if response_google_tallerista.status_code == 200:
-                    resultados_google_tallerista = response_google_tallerista.json().get('tabla_tallerista')
-                    st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
-                    for resultado in resultados_google_tallerista:
-                        st.write([resultado['title'], resultado['link']], newlines=True)
-
-                # Búsqueda de insumos en Google
-                response_google_insumos = requests.post(f'{BASE_URL}/buscar_insumos', json={'descripcion': descripcion})
-                if response_google_insumos.status_code == 200:
-                    resultados_google_insumos = response_google_insumos.json().get('tabla_insumos')
-                    st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
-                    for insumo, resultados in resultados_google_insumos.items():
-                        st.write(f"\nResultados para {insumo} en Chile:")
-                        for resultado in resultados:
-                            st.write([resultado['title'][:50], resultado['link']], newlines=True)
-                        st.markdown("---")
-
-
-col3 = st.columns(1)
-# with col1:
-#     # Botón para abrir el popup
-#     if st.button("API Key"):
-#         show_popup()
-
-# with col2:
-#     # Sección para obtener la descripción y realizar acciones
-#     descripcion = st.text_input("",'Ingresa aquí la descripción:')
+# Sección para obtener la descripción y realizar acciones
+st.header('Descripción sobre el taller que desea realizar')
+descripcion = st.text_input('Ingresa la descripción:')     
 
     
-                
+# Botón para realizar todas las acciones con una sola búsqueda
+if st.button('Realizar Búsqueda'):
+    response = requests.post(f'{BASE_URL}/tipo_tallerista', json={'descripcion': descripcion})
+    if response.status_code == 200:
+        tipo_tallerista = response.json()['tipo_tallerista']
+        st.success(f'Tipo de tallerista recomendado: {tipo_tallerista}')
+
+        insumos_response = requests.post(f'{BASE_URL}/insumos', json={'descripcion': descripcion})
+        if insumos_response.status_code == 200:
+            insumos = insumos_response.json()['insumos']
+            st.success(f'Insumos recomendados: {insumos}')
+
+        # Búsqueda de talleristas en Google
+        response_google_tallerista = requests.post(f'{BASE_URL}/buscar_tallerista', json={'descripcion': descripcion})
+        if response_google_tallerista.status_code == 200:
+            resultados_google_tallerista = response_google_tallerista.json().get('tabla_tallerista')
+            st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
+            for resultado in resultados_google_tallerista:
+                st.write([resultado['title'], resultado['link']], newlines=True)
+
+        # Búsqueda de insumos en Google
+        response_google_insumos = requests.post(f'{BASE_URL}/buscar_insumos', json={'descripcion': descripcion})
+        if response_google_insumos.status_code == 200:
+            resultados_google_insumos = response_google_insumos.json().get('tabla_insumos')
+            st.subheader('Resultados de búsqueda en Google por Tipo de Tallerista')
+            for insumo, resultados in resultados_google_insumos.items():
+                st.write(f"\nResultados para {insumo} en Chile:")
+                for resultado in resultados:
+                    st.write([resultado['title'][:50], resultado['link']], newlines=True)
+                st.markdown("---")
+
+
+
 # Botón para guardar resultados
 if st.button('Guardar Resultados'):
     data = {
-        'descripcion': search_text,
+        'descripcion': descripcion,
     }
     response_guardar = requests.post(f'{BASE_URL}/guardar_resultados', json=data)
     if response_guardar.status_code == 200:
