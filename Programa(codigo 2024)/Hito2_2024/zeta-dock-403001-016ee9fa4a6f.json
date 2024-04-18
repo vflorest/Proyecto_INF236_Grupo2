@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "zeta-dock-403001",
+  "private_key_id": "016ee9fa4a6ff7d0d97ac719e5ed123011b3690f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDe14vXwu1dDnG2\nN5QiuIedNOFyVDTO+pxIJ4TqV70NxPmbdj9cjd8Je0vuBCETvf1m+B0TAbLTGSg1\nBcIddU0keWmx0DqDdGicfZ49UKdAS3Wmh3xxe4f/Zx/ziCPmIh+To5XXXbwKUX+y\npOMC0NmgyKbc8tmni6h0Jxi9ewW33HG2KYPSSudhrnSxWY1Or7T5A3RrS9CcO/MS\nxEVtOZapE1e01NF1cGboAnn72Tfb5vkzO34+bqH6Mc9tsWkyHL83MnyvE245iRra\n8x+0DilDcqL6/d2NLzwToZysnLlIq0jP7efqeFgAbmffA/eOOb8MFaJXJHNsIuv+\nX5zG6cRLAgMBAAECggEAAxoJWamrHh/eWB5YuU1lbdW9/mMxQ2EPndCwmlM56Wzz\n2hGArkW3QTpUtm2bFdt2IUgtndJPOxfFjH9inua/RruxGFPncv72ADLR0G6rKH6K\nyhRmsgZ5jR+FVu47k0kN59zGCcDFpkS3vBsGO3rNHKs0tcYxK18+EZsEG1cQ0rWz\nImQlm77G5ZyfHRlM1kfv0kggvhWyo7djslLJ66knxp+eMdmkJb1wKHFP5kTuKmyp\n0M0proX8HhQBoVqg5Ck72gywsCsJIxwHilac3iskmL7X7+yxDH9Rhe2Ny71HrpQK\nB5sUw1E+KAaDjyT2cWQUo0z5fj36A31gci2XxVv3CQKBgQD9Tx9Ruu4s7h/2eAJn\nT4ayMFLP47DRKHZJQCmzUngd2Vb3GfuMR9bOWHK0rToDRlqn9zhXmc7DOiz/Axbd\nh4QAGdMB50jrR/2LvVU1gCJn6By2eM8oFlbO8pdo/+dkm2a2Cr+brYJ2WqBynotC\nJHboKAMBrzkfSxgbWubWKL/8HQKBgQDhNZF24N2y4JSFCa8QHLDePUg824/LIw1H\ndGWhMGZdpsOc3gYeAYskvvhagCyxwywL5er+GCxnPF0hFWKEX2f3uXs5blgmLeRl\nTzDplzVZU6KD83DVzA6Vhzo2dHJdMSKAWP2zHwropP+/dv5owVegc7NvpsbxKB35\nAd5FCBhFhwKBgQDQsp6gLL3MwMgOvaNlUK0uJAgmhXaJbKfABCAXQSv7k7RF099f\nHVUKHu8qksoIJq/MUS/XZL5oNIcb94SgMeV8W8pweAio6GAqAGyyroYqS59Ua0Zp\nxbXxvQcoGCahyjMeas6gyZyCPHqS1LLxZK+e6FBJ0/7hHHKZHxSuf1ZltQKBgCqG\nafRPm61GOOUyIeth74fXfId5UhqigMRoVzRrpjiy36cESZVq5zJGGTFFmKrsVqnc\nfVYDjIbl4BP6LMMgHMqrLHh4vI5hBgqXPH4vPjSi1UIjOsA0KuDTSwuzS1ELkR85\nLpafGvk5Bs3Jk1qGf5xdnJlNna01zQsS7jyMvcCLAoGBALTvpvT/PessCS27fMK3\nSUM3SMPvKI8xFPGjQzgZaamfatCB6MrqdovEDoKmvrpHjnvF3sZ5mIKypMXUkMXW\nOeoHGjtlkt0UAzhIRwmP+laZoW8IpRa5Fnpo6oHXxMtvTFcVikBGcub2KpfCGlI7\n0Tka0JReEK0L4VMZcfB2xuCq\n-----END PRIVATE KEY-----\n",
+  "client_email": "prueba-1@zeta-dock-403001.iam.gserviceaccount.com",
+  "client_id": "110606797053557521554",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/prueba-1%40zeta-dock-403001.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
