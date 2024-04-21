@@ -5,7 +5,7 @@ pip install google-auth google-auth-oauthlib
 pip install google-api-python-client
 pip install openai
 pip install tabulate
-pip install streamli
+pip install streamlit
 pip install requests
 pip install Flask
 pip install pandas 
