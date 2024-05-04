@@ -1,0 +1,8 @@
+node_modules
+_pycache__
+__pycache__
+Registros
+config.cpython-311
+
+# Keep environment variables out of version control
+.env
