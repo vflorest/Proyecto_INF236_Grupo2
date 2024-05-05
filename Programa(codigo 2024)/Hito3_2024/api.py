@@ -90,6 +90,8 @@ def crear_evento():
     experiencia_tallerista = datos_evento.get('experiencia_tallerista')
     instagram = datos_evento.get('instagram')
     tiktok = datos_evento.get('tiktok')
+    
+    
 
     cursor = conn.cursor()
     cursor.execute("INSERT INTO eventos (titulo_evento, descripcion_evento, vacantes, sesiones, modalidad, contenido, imagen_evento, imagen_tallerista, experiencia_tallerista, instagram, tiktok) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (titulo_evento, descripcion_evento, vacantes, sesiones, modalidad, contenido, imagen_evento, imagen_tallerista, experiencia_tallerista, instagram, tiktok))
@@ -261,6 +263,8 @@ def desaprobar_evento(evento_id):
     conn.commit()
     cursor.close()
     return jsonify({'message': 'Evento desaprobado correctamente.'}), 200
+
+
 
 
 if __name__ == '__main__':

@@ -13,7 +13,6 @@ pip install Pillow
 pip install psycopg2-binary
 pip install python-docx
 pip install fpdf
-pip install PyPDF2
 
 
 

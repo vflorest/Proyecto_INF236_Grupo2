@@ -18,10 +18,7 @@ from fpdf import FPDF
 from PIL import Image
 import io
 from datetime import date, time, datetime
-from PyPDF2 import PdfReader
-import fitz
-import tempfile
-import os 
+
 
 # URL base de la API Flask
 BASE_URL = 'http://localhost:5000'  # Cambia esto por la URL donde se ejecute la API Flask
@@ -41,30 +38,12 @@ estilos = """
     }
     </style>
 """
-def descargar_contenido(contenido_base64, evento_titulo):
+def descargar_pdf(pdf_base64, nombre_archivo):
     try:
-        # Decodificar los datos binarios
-        contenido_bytes = base64.b64decode(contenido_base64)
-        
-        # Crear un archivo temporal con extensión .pdf
-        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as temp_file:
-            temp_file.write(contenido_bytes)
-            temp_file_path = temp_file.name
-        
-        # Verificar que el archivo se haya creado correctamente
-        if os.path.isfile(temp_file_path):
-            # Crear un objeto PdfFileReader para el archivo temporal
-            pdf_reader = PdfReader(temp_file_path)
-            
-            # Verificar si el PDF se creó correctamente y tiene páginas válidas
-            if pdf_reader.numPages > 0:
-                st.success(f"Contenido descargado correctamente como PDF: {evento_titulo}.pdf")
-            else:
-                st.error("Error: el PDF generado no tiene páginas.")
-        else:
-            st.error("Error al crear el archivo temporal.")
+        pdf_bytes = base64.b64decode(pdf_base64)
+        st.download_button(label=f"Descargar {nombre_archivo}.pdf", data=pdf_bytes, file_name=f"{nombre_archivo}.pdf", mime='application/pdf')
     except Exception as e:
-        st.error(f"Error al descargar el contenido como PDF: {str(e)}")
+        st.error(f"Error al descargar el PDF: {e}")
 
 def mostrar_imagen(imagen_base64):
     try:
@@ -270,15 +249,12 @@ elif menu == 'Eventos':
             st.write(f"Modalidad: {'Presencial' if evento['modalidad'] == 1 else 'Virtual'}")
             st.write(f"Contenido: {'Sí' if evento['contenido'] else 'No'}")  # Mostrar si hay contenido o no
 
-            # Descargar contenido en PDF o Word
+            # Mostrar contenido y botón de descarga si existe
             if evento['contenido']:
-                if st.button(f"Ver Contenido de {evento['titulo_evento']}"):
-                    descargar_contenido(evento['contenido'], evento['titulo_evento'])
+                descargar_pdf(base64.b64decode(evento['contenido']), f"{evento['titulo_evento']}_contenido")
             else:
-                st.write("No hay contenido disponible para ver.")
-
-
-            # Mostrar imágenes en formato PNG si existe la imagen
+                st.write("No hay contenido PDF disponible para este evento.")
+                    
             if evento['imagen_evento']:
                 mostrar_imagen(base64.b64decode(evento['imagen_evento']))
             else:
