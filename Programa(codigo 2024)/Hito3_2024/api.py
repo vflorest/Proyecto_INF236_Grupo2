@@ -97,10 +97,7 @@ def crear_evento():
     cursor.execute("INSERT INTO eventos (titulo_evento, descripcion_evento, vacantes, sesiones, modalidad, contenido, imagen_evento, imagen_tallerista, experiencia_tallerista, instagram, tiktok) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (titulo_evento, descripcion_evento, vacantes, sesiones, modalidad, contenido, imagen_evento, imagen_tallerista, experiencia_tallerista, instagram, tiktok))
     conn.commit()
     cursor.close()
-
-    return jsonify({'message': 'Evento creado correctamente'}), 200
-
-
+    return jsonify({'message':'Evento creado correctamente.'}), 200
 
 
 # Configurar API key de OpenAI
