@@ -30,7 +30,6 @@ def obtener_privilegio(BASE_URL):
         response = requests.get(f"{BASE_URL}/obtener_privilegio")
         if response.status_code == 200:
             privilegio = response.json().get("privilegio")
-            print("Privilegio obtenido:", privilegio)  # Mensaje de depuración
             return privilegio
         else:
             print("Error en la solicitud HTTP:", response.status_code)  # Mensaje de depuración

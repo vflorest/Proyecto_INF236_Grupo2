@@ -53,21 +53,25 @@ def mostrar_eventos_registrados(BASE_URL):
 
             # Agregar botones para aprobar y desaprobar
             if estado_filtro == 'Sin revisar':
-                if st.button(f"Aprobar {evento['titulo_evento']}"):
-                    # Enviar acción de aprobación a la API
-                    response_aprobacion = requests.post(f'{BASE_URL}/aprobar_evento/{evento["id"]}')
-                    if response_aprobacion.status_code == 200:
-                        st.success('Evento aprobado correctamente.')
-                    else:
-                        st.error('Error al aprobar el evento.')
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if st.button(f"Aprobar {evento['titulo_evento']}", key=f"aprobar_{evento['id']}"):
+                        # Enviar acción de aprobación a la API
+                        response_aprobacion = requests.post(f'{BASE_URL}/aprobar_evento/{evento["id"]}')
+                        if response_aprobacion.status_code == 200:
+                            st.success('Evento aprobado correctamente.')
+                        else:
+                            st.error('Error al aprobar el evento.')
 
-                if st.button(f"Desaprobar {evento['titulo_evento']}"):
-                    # Enviar acción de desaprobación a la API
-                    response_desaprobacion = requests.post(f'{BASE_URL}/desaprobar_evento/{evento["id"]}')
-                    if response_desaprobacion.status_code == 200:
-                        st.success('Evento desaprobado correctamente.')
-                    else:
-                        st.error('Error al desaprobar el evento.')
+                with col2:
+                    if st.button(f"Desaprobar {evento['titulo_evento']}", key=f"desaprobar_{evento['id']}"):
+                        # Enviar acción de desaprobación a la API
+                        response_desaprobacion = requests.post(f'{BASE_URL}/desaprobar_evento/{evento["id"]}')
+                        if response_desaprobacion.status_code == 200:
+                            st.success('Evento desaprobado correctamente.')
+                        else:
+                            st.error('Error al desaprobar el evento.')
 
             st.write('---')
     else:
