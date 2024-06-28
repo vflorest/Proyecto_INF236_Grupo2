@@ -16,17 +16,16 @@ def configure_openai_key():
         api_key = request.json.get('api_key')
         openai.api_key = api_key
         
-        # Realiza una solicitud de prueba a la API de OpenAI
-        response = openai.Completion.create(engine="davinci", prompt="Hello, world!")
+        # Realiza una solicitud de prueba para verificar la API Key
+        response = openai.Completion.create(engine="gpt-3.5-turbo-instruct", prompt="Hello, world!")
         
-        if response['id']:
+        if response and response.choices:
             return jsonify({'message': 'OpenAI API Key configured successfully'}), 200
         else:
             return jsonify({'error': 'La clave de API de OpenAI no es válida'}), 400
     
-    except Exception:
-        return jsonify({'error': ERROR_INTERNO_SERVIDOR}), 500
-
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 @openai_bp.route('/tipo_tallerista', methods=['POST'])
 def get_tipo_tallerista():
     try:
