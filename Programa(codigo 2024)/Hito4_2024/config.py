@@ -2,7 +2,7 @@
 # Parámetros de conexión y nombre de la base de datos
 dbname = "Prueba3"
 user = "postgres" #por defecto generalmente
-password = "16012001"
+password = ""
 host = "localhost"  # Cambia esto si tu servidor está en otro host
 port = "5432"  # Cambia esto si tu servidor PostgreSQL utiliza otro puerto
 
